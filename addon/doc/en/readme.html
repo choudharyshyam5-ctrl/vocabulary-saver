@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Vocabulary Saver guide</title><style>body{font-family:system-ui,sans-serif;line-height:1.55;max-width:850px;margin:2rem auto;padding:0 1rem}pre{overflow:auto;padding:1rem;background:#f3f3f3}code{font-size:0.95em}h1,h2{line-height:1.2}</style></head><body><main><h1>Vocabulary Saver: NVDA add-on starter</h1>
+<p>Prepared for Shyam Choudhary, 11 October 2026. Development version 0.1.0-dev.</p>
+<p>Learn Japanese vocabulary the easy way! Save words, meanings and grammar notes lesson by lesson, and test yourself with fun quizzes. Made for Japanese learners.</p>
+<h2>Status: source starter, not a tested release</h2>
+<p>This is phase 1 of ONE add-on for Japanese learners: Japanese vocabulary and
+grammar entries grouped into lessons,
+with local storage, JSON backup and a simple MCQ practice quiz. The code is written for NVDA 2025.1+ APIs
+and Python 3.11-compatible syntax. Current NVDA is newer than 2025.x and has
+moved to Python 3.13; confirm your version in NVDA Help &gt; About.</p>
+<p>Python compilation and automated storage tests are not live NVDA testing.
+No Windows NVDA or wxPython runtime was available during preparation. Keyboard
+navigation, screen-reader announcements, dialog layout, selected-text capture,
+and installation still need the manual checks below. Do not publish this as a
+stable release until those checks pass on your actual NVDA version.</p>
+<p>The source manifest's <code>lastTestedNVDAVersion = 2025.1</code> is an explicitly marked
+DEVELOPMENT PLACEHOLDER, not a statement that NVDA 2025.1 was tested. The build
+script requires you to enter a version you have actually tested. For your first
+runtime check, load the plugin through NVDA's development scratchpad instead
+of packaging an untested compatibility assurance.</p>
+<h2>Features and keys</h2>
+<ul>
+<li>NVDA+Shift+V: open Add vocabulary with selected text prefilled when available.</li>
+<li>NVDA+Alt+V: open the lesson window, with Add vocabulary first, plus a lesson
+  selector and distinct Read vocabulary list / Edit vocabulary list buttons.</li>
+<li>The first action is Add vocabulary. It opens a labelled Lesson dropdown.
+  Existing lessons appear for selection. If none exist, its only option is
+  Create a new lesson, with a Lesson name field below it. Enter word/grammar
+  term, meaning and optional notes, then save. The first lesson and entry save
+  together; Cancel or invalid input creates neither.</li>
+<li>Read vocabulary list opens a read-only lesson snapshot: arrow through Words,
+  Tab to Details, or press Read selected entry to hear word, meaning and notes.
+  There are no add/edit/delete controls in this mode.</li>
+<li>Edit vocabulary list opens the existing manager with add/edit/delete, lesson
+  creation, JSON backups and quiz. With no lessons, use Edit then New lesson.</li>
+<li>Browse the lesson choice and word list with arrows. Each word list item includes
+  its meaning; full notes remain available in the read-only details control.</li>
+<li>New lesson, Add entry, Edit entry, Delete entry, Export JSON, Import JSON, Start quiz.</li>
+<li>Tab / Shift+Tab move between controls. Native buttons work with Space.
+  Alt+the underlined letter activates labels/buttons. Escape closes dialogs;
+  Cancel in Add/Edit discards unsaved text.</li>
+<li>Word and meaning are required; notes are optional. Unicode/Japanese works.</li>
+<li>Selected text comes from the focused application's TextInfo or its browse-mode
+  interceptor, not the clipboard. If selection is unsupported, empty, or longer
+  than 200 characters, type the word manually. Clipboard contents are untouched.</li>
+<li>The user reviews the selected word and fills the meaning before saving.</li>
+<li>No automatic dictionary, AI, network request, cloud sync or automatic score sending.</li>
+</ul>
+<p>NVDA is the modifier key configured in your NVDA keyboard settings (usually
+Insert and/or Caps Lock). Another add-on may already use these keys; change them
+through Input Gestures if necessary.</p>
+<h2>NVDA Tools menu</h2>
+<p>Open NVDA menu &gt; Tools &gt; Vocabulary Saver. Its submenu provides Add vocabulary,
+Read vocabulary list, Edit vocabulary list, Start MCQ quiz, and Lessons.
+Read/Edit/Quiz menu actions ask you to choose a saved lesson before opening that
+path. Add uses the same lesson dropdown as the hotkey. Lessons opens the main
+lesson chooser. Menu items are removed when the plugin unloads, and are not
+installed in secure mode. Keyboard shortcuts remain available as before.</p>
+<h2>Change keyboard gestures</h2>
+<p>After the plugin is loaded, open NVDA menu &gt; Preferences &gt; Input Gestures.
+Find the category "Vocabulary Saver". Select "Add a vocabulary entry, using
+selected text when available" or "Browse vocabulary lessons and manage entries
+or backups". Use Add, press your desired key combination, and confirm it.
+Remove an unwanted binding with Remove. Save the dialog with OK.
+Use NVDA+1 for Input Help to check what a gesture does without running it.</p>
+<h2>Exact source tree</h2>
+<pre><code class="language-text">VocabularySaver/
+  README.md
+  CHANGELOG.md
+  TESTING.md
+  build.py
+  addon/
+    manifest.ini
+    doc/
+      en/
+        readme.html
+    globalPlugins/
+      vocabularySaver/
+        __init__.py
+        selection.py
+        storage.py
+        dialogs.py
+        lessonDialogs.py
+        quiz.py
+        quizDialogs.py
+        settings.py
+  tests/
+    test_storage.py
+    test_selection.py
+    test_quiz.py
+</code></pre>
+<p><code>__init__.py</code> is the GlobalPlugin entry point: gestures, selected-word capture,
+dialog lifecycle, and the NVDA configuration path. <code>selection.py</code> reads selected
+text. <code>storage.py</code> is independent of NVDA and wx: schema checks, Unicode JSON,
+atomic writes and CRUD. <code>lessonDialogs.py</code> separates the lesson chooser/read-only reader from editing.
+<code>dialogs.py</code> holds the editing manager and entry controls. <code>quiz.py</code> generates and scores
+MCQs; <code>quizDialogs.py</code> presents questions and the copyable result.
+<code>build.py</code> creates the install archive, excluding Python caches. Tests can run
+on ordinary Python without NVDA installed. NVDA supplies wxPython itself; do
+not install a separate wxPython into NVDA.</p>
+<p>The actual NVDA gesture map name is <code>__gestures</code>, without trailing underscores.
+The script decorators provide descriptions and the category for Input Gestures.</p>
+<h2>First runtime test: development scratchpad</h2>
+<p>Use a spare NVDA configuration or portable copy for development and export any
+existing vocabulary before modifying code. Do not run two NVDA processes against
+the same vocabulary configuration directory.</p>
+<ol>
+<li>Open NVDA menu &gt; Preferences &gt; Settings &gt; Advanced.</li>
+<li>Read/accept the advanced-settings caution. Enable "Enable loading custom code
+   from Developer Scratchpad directory". This is for development, not normal
+   installation.</li>
+<li>Use "Open developer scratchpad directory". Inside it, create <code>globalPlugins</code>
+   if missing.</li>
+<li>Copy the WHOLE <code>addon/globalPlugins/vocabularySaver</code> folder into that folder.
+   Result: <code>scratchpad/globalPlugins/vocabularySaver/__init__.py</code>.</li>
+<li>Restart NVDA. Check the manual checklist in TESTING.md. If it fails, look in
+   NVDA Tools &gt; View log; copy errors, not your private vocabulary, for debugging.</li>
+<li>Record the actual working NVDA version. Remove the scratchpad copy and
+   disable scratchpad loading before installing a packaged copy. Loading both
+   copies can conflict.</li>
+</ol>
+<p>No manifest is loaded by this scratchpad method. Do not copy the outer
+VocabularySaver source folder to globalPlugins.</p>
+<h2>Build a .nvda-addon file</h2>
+<p>From the extracted VocabularySaver folder, in a Windows terminal with Python:</p>
+<pre><code class="language-bat">py -3.11 -m unittest discover -s tests -v
+py -3.11 -m compileall -q addon tests build.py
+py -3.11 build.py --tested-nvda-version YOUR_TESTED_VERSION
+</code></pre>
+<p>Replace YOUR_TESTED_VERSION with a numeric version you actually checked, such
+as the value shown in Help &gt; About. You can use Python 3.13 instead if that is
+what is installed; the build script does not depend on NVDA. A successful build
+prints <code>dist/vocabularySaver-0.1.0-dev.nvda-addon</code>.</p>
+<p>A .nvda-addon file is a ZIP archive with <code>manifest.ini</code>, <code>globalPlugins/</code> and
+<code>doc/</code> directly at its root. It must NOT have an outer <code>addon/</code> or
+<code>VocabularySaver/</code> folder. The SOURCE ZIP delivered with this README is not an
+install package. Renaming that source ZIP to .nvda-addon will not work.</p>
+<p>The builder rewrites lastTestedNVDAVersion inside the package to the tested
+version you supply. It does not alter the source manifest or run NVDA for you.
+Before a public release, also set an honest tested version in the source
+manifest, choose a release version, and update the filename in build.py.</p>
+<h2>Install a built package</h2>
+<ol>
+<li>Close/remove the scratchpad copy first.</li>
+<li>Open the trusted .nvda-addon file in File Explorer, or in NVDA's Add-on Store
+   use "Install from external source" and select that package.</li>
+<li>Read the installation/compatibility warnings, confirm installation, then
+   restart NVDA when requested.</li>
+<li>Try NVDA+Alt+V and create a test lesson. Check every item in TESTING.md again.</li>
+</ol>
+<p>This add-on is not currently listed in the Add-on Store. After future accepted
+submission, users can search for Vocabulary Saver in NVDA menu &gt; Tools &gt;
+Add-on Store &gt; Available add-ons, select it, install, and restart NVDA.
+Do not override a compatibility warning just because a package compiles.</p>
+<h2>Local data, backup and recovery</h2>
+<p>Data lives at:</p>
+<pre><code class="language-text">&lt;NVDA user configuration directory&gt;/vocabularySaver/vocabulary.json
+</code></pre>
+<p>The code derives that directory from NVDA's <code>globalVars.appArgs.configPath</code>;
+it does not hard-code AppData. Installed and portable NVDA can therefore use
+different locations. Use NVDA's user-configuration-folder shortcut when
+available, or inspect your portable/configuration directory. Do not save data
+inside the add-on directory, which can be replaced during updates.</p>
+<ul>
+<li>Every successful change is persisted immediately. There is no separate Save
+  button in the manager.</li>
+<li>Writes use a temporary sibling file and atomic replacement. A disk/permission
+  error is shown, and failed changes do not update the in-memory store.</li>
+<li><code>vocabulary.previous.json</code> keeps the state before the last saved change.</li>
+<li>Export JSON lets you choose a separate backup location. Copy that file to
+  another device or storage service yourself. Local snapshots are not a backup
+  against disk failure.</li>
+<li>Import JSON validates the ENTIRE file before saving. Import REPLACES all
+  lessons/entries; it does not merge. A confirmation is required.</li>
+<li><code>vocabulary.before-import.json</code> keeps the state immediately before the latest
+  successful import attempt's commit. A later import overwrites this snapshot.</li>
+<li>Invalid/corrupt storage is never silently reset. The plugin refuses to open
+  it and leaves it untouched.</li>
+</ul>
+<p>For recovery: close the manager and exit NVDA, make a copy of ALL vocabulary
+files, and replace <code>vocabulary.json</code> with a known-good exported JSON or recovery
+snapshot. Restart NVDA. If the snapshot is invalid too, keep the copies for
+repair, rather than deleting your only record. Removing the add-on does not
+intentionally delete this separate data directory; removing the whole NVDA
+configuration can delete it.</p>
+<p>Data is plain UTF-8 JSON, not encrypted. Anyone with access to your Windows
+account, backups, or the file can read it. Nothing is sent to the internet by
+this starter. Limits: 5 MiB per file, 500 lessons, 20,000 entries, 100-character
+lesson names, 200-character words, 2,000-character meanings, 10,000-character
+notes. Lesson names must be unique ignoring case; duplicate words are allowed
+for different meanings. There is no lesson rename/delete or search yet.</p>
+<p>Example schema:</p>
+<pre><code class="language-json">{
+  &quot;schemaVersion&quot;: 1,
+  &quot;lessons&quot;: [
+    {
+      &quot;id&quot;: &quot;unique-lesson-id&quot;,
+      &quot;name&quot;: &quot;Lesson 1&quot;,
+      &quot;entries&quot;: [
+        {
+          &quot;id&quot;: &quot;unique-entry-id&quot;,
+          &quot;word&quot;: &quot;neko&quot;,
+          &quot;meaning&quot;: &quot;cat&quot;,
+          &quot;notes&quot;: &quot;Japanese noun&quot;
+        }
+      ]
+    }
+  ]
+}
+</code></pre>
+<p>The importer rejects duplicate IDs, duplicate JSON keys, unsupported schema
+versions, unexpected fields, and wrong types. A future schema must have a
+migration path; do not simply add fields to existing version-1 backups.</p>
+<h2>MCQ quiz included in version 0.1</h2>
+<p>Choose a lesson, open Edit vocabulary list, then activate Start quiz (Alt+Q). This local
+practice quiz asks "What is the meaning of [word]?" and uses saved meanings
+from that same lesson as distractors. No invented definitions or AI are used.</p>
+<ul>
+<li>At least two distinct meanings are required. Two or three meanings produce
+  two or three options; four or more produce four options per question.</li>
+<li>Up to the configured number of unambiguous words are asked once, in random
+  order, with shuffled options (default 10; choose All to ask every usable word).
+  Duplicate identical words are deduplicated. Words with multiple distinct
+  meanings in the lesson are skipped to avoid ambiguous word-only questions.</li>
+<li>Use arrows in the labelled Answer choice, then Submit answer. No option is
+  preselected. The next question is announced if automatic announcements are on;
+  the Question text remains readable either way.</li>
+<li>Finish quiz announces the final score and opens a read-only result dialog.
+  Copy score copies plain text to the clipboard only after you press it.
+  Paste into WhatsApp, email or another app yourself to share. Nothing is sent
+  automatically. The result includes only lesson name, score and quiz mode,
+  not the vocabulary entries or notes.</li>
+<li>Cancel exits without a result. Answers cannot be changed after submission.
+  No per-question feedback, explanations, history, persistent scores, timer,
+  or reverse-meaning mode yet. Export/import applies to vocabulary,
+  not quiz results. Save copied results yourself if needed.</li>
+</ul>
+<p><code>quiz.py</code> is pure Python and works on a snapshot from <code>Store.lessons</code>; it cannot
+change saved vocabulary. <code>quizDialogs.py</code> is separate wx presentation. This is
+ONE add-on, not a separate test add-on. The generator checks text equality, not
+semantic similarity: meanings that are synonyms may make poor distractors.
+Choose precise definitions in your lesson and treat this as practice, not a
+certified assessment. Score labels and question quality can be improved later.</p>
+<h2>Settings (exactly two options)</h2>
+<p>Open NVDA menu &gt; Preferences &gt; Settings &gt; Vocabulary Saver.</p>
+<ol>
+<li>Number of questions per MCQ quiz: default 10. Type any whole number from 1
+   to 20000 into the labelled combo box, or choose All from its dropdown.
+   All asks every usable word in the chosen lesson; a numeric limit asks fewer
+   if the lesson has fewer usable words. Questions are randomly sampled after
+   ambiguous/duplicate words are removed.</li>
+<li>Announce each question automatically when it appears: default on. Turn off
+   to read the labelled Question text yourself. Answer choices and the final
+   score remain accessible; the final score is still announced.</li>
+</ol>
+<p>Settings save through NVDA's normal settings/profile mechanism. Cancel does not
+apply changes. No extra options, account controls or network settings are added.</p>
+<h2>Later improvements</h2>
+<p>Optional Gemini correction remains out of scope. Keep API handling in a new
+module separate from storage/UI, require review before sending or changing
+entries, and keep secrets out of vocabulary JSON.</p>
+<p>Improve this same add-on's MCQ module later. Any persistent quiz history should
+use a separate versioned file so vocabulary schema 1 stays compatible. External
+score sharing should remain an explicit reviewed action. No cloud/Firebase code
+is included now.</p>
+<h2>GitHub hosting and NVDA Add-on Store submission</h2>
+<p>Nothing has been uploaded or submitted on your behalf.</p>
+<ol>
+<li>Create a GitHub repository for the SOURCE, for example VocabularySaver.
+   Add source, README, tests and changelog. Keep private vocabulary data, exports,
+   credentials, Python caches and temporary files out of Git.</li>
+<li>Choose a license before inviting others to reuse the code. No publication
+   license has been selected for you in this starter.</li>
+<li>Test with NVDA, finish metadata (including a real repository URL in the
+   manifest's <code>url</code> field), then build a versioned .nvda-addon.</li>
+<li>Create a GitHub Release for that version and attach the .nvda-addon as a
+   release asset. Users need the asset, not GitHub's auto-generated source ZIP.</li>
+<li>For the Store, follow the official nvaccess/addon-datastore submission guide
+   linked below. Open its "Add-on registration" issue form. Provide the release
+   download URL and metadata matching the manifest. The process generates a
+   metadata pull request and runs validation/security checks.</li>
+<li>First-time publishers need approval for their add-on. The official guide
+   says this can take up to two weeks. Address any failed checks as directed;
+   Store availability is not immediate or guaranteed.</li>
+</ol>
+<p>A valid downloadable package, matching manifest/metadata, appropriate NVDA API
+versions, repository/homepage URL, and the download's SHA-256 are part of the
+submission validation. Store listing does not mean a human audited the code.
+For a Store-ready project, consider moving this source into the official NVDA
+add-on template and adding translation support, CI and an agreed license.</p>
+<h2>Verified reference links</h2>
+<ul>
+<li>NVDA developer guide (global plugins, script properties, manifest, scratchpad):
+  https://download.nvaccess.org/documentation/developerGuide.html</li>
+<li>NVDA user guide (Add-on Store, Input Gestures, Advanced settings):
+  https://download.nvaccess.org/documentation/userGuide.html</li>
+<li>2025.1 gesture implementation (__gestures):
+  https://github.com/nvaccess/nvda/blob/release-2025.1/source/baseObject.py</li>
+<li>2025.1 selection reporting implementation:
+  https://github.com/nvaccess/nvda/blob/release-2025.1/source/globalCommands.py</li>
+<li>NVDA Python 3.13 transition:
+  https://github.com/nvaccess/nvda/issues/18591</li>
+<li>Add-on Store repository:
+  https://github.com/nvaccess/addon-datastore</li>
+<li>Official Store submission guide:
+  https://github.com/nvaccess/addon-datastore/blob/master/docs/submitters/submissionGuide.md</li>
+</ul>
+<p>These links describe the checked workflow, not proof that this starter has
+passed live NVDA testing.</p></main></body></html>

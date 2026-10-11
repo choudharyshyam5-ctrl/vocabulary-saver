@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+dist/
+*.nvda-addon
+vocabulary.json
+vocabulary.*.json
+vocabulary-backup.json
+*.tmp
