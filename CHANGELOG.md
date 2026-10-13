@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1
+
+- Documentation and manifest corrected for NVDA Add-on Store review. No code changes.
+
 ## 0.1.0
 
 - First release.

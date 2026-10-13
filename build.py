@@ -18,7 +18,7 @@ def main():
         parser.error('The tested version must be at least 2025.1.')
     root = Path(__file__).resolve().parent
     addon = root / 'addon'
-    destination = root / 'dist' / 'vocabularySaver-0.1.0.nvda-addon'
+    destination = root / 'dist' / 'vocabularySaver-0.1.1.nvda-addon'
     destination.parent.mkdir(exist_ok=True)
     manifest = (addon / 'manifest.ini').read_text(encoding='utf-8')
     manifest = re.sub(r'^lastTestedNVDAVersion\s*=.*$', f'lastTestedNVDAVersion = {version}', manifest, flags=re.MULTILINE)
