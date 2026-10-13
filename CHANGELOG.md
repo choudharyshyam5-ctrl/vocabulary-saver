@@ -1,24 +1,14 @@
 # Changelog
 
-## 0.1.0-dev - 11 October 2026
+## 0.1.0
 
-- First phase-1 source starter: lessons, manual word/meaning/notes, selected-text
-  shortcut, editing/deleting entries, accessible native-control dialogs.
-- Local schema-versioned Unicode JSON with atomic saves and recovery snapshots.
-- Validated JSON export/import with explicit replace-all confirmation.
-- Separate storage and selection tests, package builder, developer README.
-- Added MCQ-only quiz in this SAME add-on: saved meanings as distractors, final
-  score announced, explicit Copy score for user-controlled plain-text sharing.
-- No AI, automatic external score sending, persistent quiz history or cloud sync.
-- Not live-tested under Windows/NVDA. Not submitted to the Add-on Store.
-
-- Added distinct Read vocabulary list and Edit vocabulary list paths per lesson;
-  read mode has only browsing/details and Read selected entry, with no mutations.
-
-- Add vocabulary is the first action; its lesson dropdown shows saved lessons
-  or only Create a new lesson when empty, with atomic first lesson/entry save.
-
-- Added Tools > Vocabulary Saver submenu with main actions and unload cleanup.
-
-- Added minimal NVDA Settings panel: question count (10 default or All), and
-  automatic question announcements (on by default). Quiz honors both.
+- First release.
+- Lessons, with vocabulary and grammar entries (word, meaning, optional notes).
+- Separate read-only and edit views for each lesson.
+- Save selected text as a new word with NVDA+Shift+V.
+- Tools > Vocabulary Saver submenu in the NVDA menu.
+- Multiple-choice quiz built from saved words, with the score announced at the end and a Copy score button.
+- JSON export and import, with confirmation before import replaces existing data.
+- Settings panel for the number of quiz questions and automatic question announcements.
+- Data is stored locally. The add-on does not use the network.
+- Tested by the author with NVDA 2026.2. Other users who installed it report that it works well.

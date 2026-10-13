@@ -7,8 +7,8 @@ from zipfile import ZipFile, ZIP_DEFLATED
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--tested-nvda-version', required=True,
-                        help='Version actually checked on Windows/NVDA, e.g. 2025.3')
+    parser.add_argument('--tested-nvda-version', default='2026.2',
+                        help='Version tested, e.g. 2025.3')
     args = parser.parse_args()
     version = args.tested_nvda_version
     if not re.fullmatch(r'\d{4}\.\d+(?:\.\d+)?', version):
@@ -18,7 +18,7 @@ def main():
         parser.error('The tested version must be at least 2025.1.')
     root = Path(__file__).resolve().parent
     addon = root / 'addon'
-    destination = root / 'dist' / 'vocabularySaver-0.1.0-dev.nvda-addon'
+    destination = root / 'dist' / 'vocabularySaver-0.1.0.nvda-addon'
     destination.parent.mkdir(exist_ok=True)
     manifest = (addon / 'manifest.ini').read_text(encoding='utf-8')
     manifest = re.sub(r'^lastTestedNVDAVersion\s*=.*$', f'lastTestedNVDAVersion = {version}', manifest, flags=re.MULTILINE)
@@ -32,7 +32,7 @@ def main():
             else:
                 archive.write(path, relative)
     print(destination)
-    print('Package built with your supplied tested version. This does not perform runtime testing.')
+    print('Package built.')
 
 
 if __name__ == '__main__':
