@@ -5,6 +5,9 @@ from gui import guiHelper
 import ui
 import wx
 from .quiz import score, score_text
+from .settings import speak_readings
+from . import nvda_speech
+from . import speakplan
 
 
 class ResultDialog(wx.Dialog):
@@ -31,10 +34,11 @@ class ResultDialog(wx.Dialog):
 
 
 class QuizDialog(wx.Dialog):
-    def __init__(self, parent, lesson, questions, announce_questions=True):
+    def __init__(self, parent, lesson, questions, announce_questions=True, language_name=''):
         super().__init__(parent, title='Vocabulary MCQ quiz', style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
         self.lesson, self.questions = lesson, questions
         self.announce_questions = announce_questions
+        self.language_name = language_name
         self.answers, self.index = [], 0
         self.result = None
         outer = wx.BoxSizer(wx.VERTICAL)
@@ -52,14 +56,27 @@ class QuizDialog(wx.Dialog):
 
     def _show_question(self):
         question = self.questions[self.index]
-        value = f'Question {self.index + 1} of {len(self.questions)}. What is the meaning of {question.word}?'
+        suffix = f' ({question.reading})' if question.reading and question.reading != question.word else ''
+        value = f'Question {self.index + 1} of {len(self.questions)}. What is the meaning of {question.word}{suffix}?'
         self.prompt.ChangeValue(value)
         self.options.SetItems([f'{i + 1}. {option}' for i, option in enumerate(question.options)])
         self.options.SetSelection(wx.NOT_FOUND)
         self.next_button.SetLabel('&Finish quiz' if self.index == len(self.questions) - 1 else '&Submit answer')
         wx.CallAfter(self.options.SetFocus)
         if self.announce_questions:
-            wx.CallAfter(ui.message, value)
+            wx.CallAfter(self._announce, question, value)
+
+    def _announce(self, question, value):
+        # The word and its reading are spoken in the lesson's language through
+        # NVDA's automatic language switching; the rest stays in the default voice.
+        code = speakplan.language_code(self.language_name)
+        if code:
+            nvda_speech.speak_segments(speakplan.question_segments(
+                self.index, len(self.questions), question.word, question.reading,
+                code, speak_readings(),
+            ))
+        else:
+            ui.message(value)
 
     def _submit(self, event):
         answer = self.options.GetSelection()

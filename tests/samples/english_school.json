@@ -1,0 +1,58 @@
+[
+ {
+  "word": "school",
+  "phonetic": "/skuːl/",
+  "phonetics": [
+   {
+    "text": "/skuːl/",
+    "audio": "https://api.dictionaryapi.dev/media/pronunciations/en/school-uk.mp3",
+    "sourceUrl": "https://commons.wikimedia.org/w/index.php?curid=9027379",
+    "license": {
+     "name": "BY 3.0 US",
+     "url": "https://creativecommons.org/licenses/by/3.0/us"
+    }
+   }
+  ],
+  "meanings": [
+   {
+    "partOfSpeech": "noun",
+    "definitions": [
+     {
+      "definition": "(collective) A group of fish or a group of marine mammals such as porpoises, dolphins, or whales.",
+      "synonyms": [],
+      "antonyms": [],
+      "example": "The divers encountered a huge school of mackerel."
+     },
+     {
+      "definition": "A multitude.",
+      "synonyms": [],
+      "antonyms": []
+     }
+    ],
+    "synonyms": [
+     "shoal"
+    ],
+    "antonyms": []
+   },
+   {
+    "partOfSpeech": "verb",
+    "definitions": [
+     {
+      "definition": "(of fish) To form into, or travel in a school.",
+      "synonyms": [],
+      "antonyms": []
+     }
+    ],
+    "synonyms": [],
+    "antonyms": []
+   }
+  ],
+  "license": {
+   "name": "CC BY-SA 3.0",
+   "url": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "sourceUrls": [
+   "https://en.wiktionary.org/wiki/school"
+  ]
+ }
+]

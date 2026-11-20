@@ -1,4 +1,4 @@
-"""Exactly two NVDA profile settings for local MCQ practice."""
+"""Profile settings for local MCQ practice and spoken readings."""
 import config
 from gui import guiHelper
 from gui.settingsDialogs import SettingsPanel
@@ -8,6 +8,9 @@ SECTION = 'vocabularySaver'
 SPEC = {
     'questionCount': 'integer(default=10, min=0, max=20000)',
     'announceQuestions': 'boolean(default=True)',
+    'speakReadings': 'boolean(default=True)',
+    'showWhatsNew': 'boolean(default=True)',
+    'lastSeenVersion': 'string(default="")',
 }
 
 
@@ -17,6 +20,25 @@ def initialize():
 
 def quiz_options():
     return config.conf[SECTION]['questionCount'], config.conf[SECTION]['announceQuestions']
+
+
+def whats_new_enabled():
+    """Whether the one-time what's-new notice appears after an update."""
+    return config.conf[SECTION]['showWhatsNew']
+
+
+def last_seen_version():
+    """The add-on version the notice was last shown for, empty on a fresh install."""
+    return config.conf[SECTION]['lastSeenVersion']
+
+
+def mark_version_seen(version):
+    config.conf[SECTION]['lastSeenVersion'] = version
+
+
+def speak_readings():
+    """Whether the kana reading is spoken after a word in a lesson with a language."""
+    return config.conf[SECTION]['speakReadings']
 
 
 class VocabularySettingsPanel(SettingsPanel):
@@ -33,6 +55,12 @@ class VocabularySettingsPanel(SettingsPanel):
         self.announce = wx.CheckBox(self, label='&Announce each question automatically when it appears')
         self.announce.SetValue(announce)
         helper.addItem(self.announce)
+        self.readings = wx.CheckBox(self, label='Speak the &reading after the word in lessons with a set language')
+        self.readings.SetValue(speak_readings())
+        helper.addItem(self.readings)
+        self.whatsnew = wx.CheckBox(self, label="Show the &what's-new notice once after each update")
+        self.whatsnew.SetValue(whats_new_enabled())
+        helper.addItem(self.whatsnew)
 
     def _count_value(self):
         value = self.count.GetValue().strip()
@@ -59,3 +87,5 @@ class VocabularySettingsPanel(SettingsPanel):
     def onSave(self):
         config.conf[SECTION]['questionCount'] = self._count_value()
         config.conf[SECTION]['announceQuestions'] = self.announce.GetValue()
+        config.conf[SECTION]['speakReadings'] = self.readings.GetValue()
+        config.conf[SECTION]['showWhatsNew'] = self.whatsnew.GetValue()

@@ -1,0 +1,149 @@
+{
+ "meta": {
+  "status": 200
+ },
+ "data": [
+  {
+   "slug": "学校",
+   "is_common": true,
+   "tags": [
+    "wanikani7"
+   ],
+   "jlpt": [
+    "jlpt-n5"
+   ],
+   "japanese": [
+    {
+     "word": "学校",
+     "reading": "がっこう"
+    }
+   ],
+   "senses": [
+    {
+     "english_definitions": [
+      "school"
+     ],
+     "parts_of_speech": [
+      "Noun"
+     ],
+     "links": [],
+     "tags": [],
+     "restrictions": [],
+     "see_also": [],
+     "antonyms": [],
+     "source": [],
+     "info": []
+    },
+    {
+     "english_definitions": [
+      "Gakkou"
+     ],
+     "parts_of_speech": [
+      "Place"
+     ],
+     "links": [],
+     "tags": [],
+     "restrictions": [],
+     "see_also": [],
+     "antonyms": [],
+     "source": [],
+     "info": []
+    },
+    {
+     "english_definitions": [
+      "School"
+     ],
+     "parts_of_speech": [
+      "Wikipedia definition"
+     ],
+     "links": [
+      {
+       "text": "Read “School” on English Wikipedia",
+       "url": "http://en.wikipedia.org/wiki/School?oldid=491526576"
+      },
+      {
+       "text": "Read “学校” on Japanese Wikipedia",
+       "url": "http://ja.wikipedia.org/wiki/学校?oldid=42766206"
+      }
+     ],
+     "tags": [],
+     "restrictions": [],
+     "see_also": [],
+     "antonyms": [],
+     "source": [],
+     "info": [],
+     "sentences": []
+    }
+   ],
+   "attribution": {
+    "jmdict": true,
+    "jmnedict": true,
+    "dbpedia": "http://dbpedia.org/resource/School"
+   }
+  },
+  {
+   "slug": "学部",
+   "is_common": true,
+   "tags": [],
+   "jlpt": [
+    "jlpt-n2"
+   ],
+   "japanese": [
+    {
+     "word": "学部",
+     "reading": "がくぶ"
+    }
+   ],
+   "senses": [
+    {
+     "english_definitions": [
+      "faculty (of a university)",
+      "school",
+      "college",
+      "department"
+     ],
+     "parts_of_speech": [
+      "Noun"
+     ],
+     "links": [],
+     "tags": [],
+     "restrictions": [],
+     "see_also": [],
+     "antonyms": [],
+     "source": [],
+     "info": []
+    },
+    {
+     "english_definitions": [
+      "Faculty (division)"
+     ],
+     "parts_of_speech": [
+      "Wikipedia definition"
+     ],
+     "links": [
+      {
+       "text": "Read “Faculty (division)” on English Wikipedia",
+       "url": "http://en.wikipedia.org/wiki/Faculty_(division)?oldid=494758460"
+      },
+      {
+       "text": "Read “学部” on Japanese Wikipedia",
+       "url": "http://ja.wikipedia.org/wiki/学部?oldid=42698277"
+      }
+     ],
+     "tags": [],
+     "restrictions": [],
+     "see_also": [],
+     "antonyms": [],
+     "source": [],
+     "info": [],
+     "sentences": []
+    }
+   ],
+   "attribution": {
+    "jmdict": true,
+    "jmnedict": false,
+    "dbpedia": "http://dbpedia.org/resource/Faculty_(division)"
+   }
+  }
+ ]
+}

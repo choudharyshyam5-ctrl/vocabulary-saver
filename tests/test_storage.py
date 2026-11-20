@@ -128,9 +128,38 @@ class StoreTests(unittest.TestCase):
 
     def test_internal_export_paths_rejected(self):
         self.populated()
-        for suffix in ['.json', '.previous.json', '.before-import.json']:
+        for suffix in ['.json', '.previous.json', '.before-import.json', '.v1-backup.json', '.v2-backup.json']:
             with self.subTest(suffix=suffix), self.assertRaises(storage.DataError):
                 self.store.export(self.path.with_suffix(suffix))
+
+    def test_reading_round_trip_and_patch(self):
+        lesson = self.lesson()
+        entry_id = self.store.put_entry(lesson, '学校', 'school', 'Japanese noun', reading='がっこう')
+        self.assertEqual(self.store.lessons[0]['entries'][0]['reading'], 'がっこう')
+        applied = self.store.patch_entries([
+            {'lessonId': lesson, 'entryId': entry_id, 'reading': 'がっこう!', 'meaning': 'school; college'},
+        ])
+        self.assertEqual(applied, 1)
+        entry = self.store.lessons[0]['entries'][0]
+        self.assertEqual((entry['reading'], entry['meaning']), ('がっこう!', 'school; college'))
+        self.assertEqual(entry['word'], '学校')  # patch_entries never touches word or notes
+        self.assertEqual(entry['notes'], 'Japanese noun')
+        self.assertEqual(storage.Store(self.path).data, self.store.data)
+
+    def test_patch_entries_rejects_unknown_ids_without_writing(self):
+        lesson, entry = self.populated()
+        before = self.path.read_bytes()
+        for patches in [[{'lessonId': 'missing', 'entryId': entry, 'reading': 'x'}],
+                        [{'lessonId': lesson, 'entryId': 'missing', 'meaning': 'x'}]]:
+            with self.subTest(patches=patches), self.assertRaises(storage.DataError):
+                self.store.patch_entries(patches)
+        self.assertEqual(before, self.path.read_bytes())
+        self.assertEqual(self.store.patch_entries([]), 0)
+
+    def test_reading_limits_enforced(self):
+        lesson = self.lesson()
+        with self.assertRaises(storage.DataError):
+            self.store.put_entry(lesson, 'word', 'meaning', '', reading='x' * 201)
 
     def test_duplicate_json_keys_rejected(self):
         self.path.parent.mkdir()

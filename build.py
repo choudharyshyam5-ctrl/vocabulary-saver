@@ -18,9 +18,12 @@ def main():
         parser.error('The tested version must be at least 2025.1.')
     root = Path(__file__).resolve().parent
     addon = root / 'addon'
-    destination = root / 'dist' / 'vocabularySaver-0.1.1.nvda-addon'
-    destination.parent.mkdir(exist_ok=True)
     manifest = (addon / 'manifest.ini').read_text(encoding='utf-8')
+    match = re.search(r'^version\s*=\s*(\S+)\s*$', manifest, flags=re.MULTILINE)
+    if not match:
+        raise SystemExit('manifest.ini has no version field.')
+    destination = root / 'dist' / f'vocabularySaver-{match.group(1)}.nvda-addon'
+    destination.parent.mkdir(exist_ok=True)
     manifest = re.sub(r'^lastTestedNVDAVersion\s*=.*$', f'lastTestedNVDAVersion = {version}', manifest, flags=re.MULTILINE)
     with ZipFile(destination, 'w', ZIP_DEFLATED) as archive:
         for path in sorted(addon.rglob('*')):

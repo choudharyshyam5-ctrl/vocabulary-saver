@@ -1,0 +1,422 @@
+{
+ "paging": {
+  "Sentences": {
+   "count": 1000,
+   "current": 10,
+   "perPage": 10,
+   "page": 1,
+   "requestedPage": 1,
+   "pageCount": 100,
+   "start": 1,
+   "end": 10,
+   "prevPage": false,
+   "nextPage": true,
+   "sort": null,
+   "direction": null,
+   "sortDefault": false,
+   "directionDefault": false,
+   "completeSort": [],
+   "limit": null,
+   "scope": null,
+   "finder": "all"
+  }
+ },
+ "results": [
+  {
+   "id": 10756861,
+   "text": "学校だよ。",
+   "lang": "jpn",
+   "correctness": 0,
+   "script": null,
+   "license": "CC BY 2.0 FR",
+   "translations": [
+    [
+     {
+      "id": 5852683,
+      "text": "I'm at school.",
+      "lang": "eng",
+      "correctness": 0,
+      "script": null,
+      "transcriptions": [],
+      "audios": [
+       {
+        "id": 329161,
+        "source": "tatoeba",
+        "author": "CK",
+        "attribution_url": null,
+        "license": null,
+        "download_url": "/en/audio/download/329161"
+       }
+      ],
+      "isDirect": true,
+      "lang_name": "English",
+      "dir": "ltr",
+      "lang_tag": "en"
+     }
+    ],
+    []
+   ],
+   "transcriptions": [
+    {
+     "id": 2172652,
+     "sentence_id": 10756861,
+     "script": "Hrkt",
+     "text": "[学校|がっ|こう]だよ。",
+     "user_id": 86121,
+     "needsReview": false,
+     "modified": "2022-04-09T01:53:36+00:00",
+     "user": {
+      "username": "small_snow"
+     },
+     "readonly": false,
+     "type": "altscript",
+     "html": " 学 （</rp> がっ</rt> ）</rp></ruby> 校 （</rp> こう</rt> ）</rp></ruby>だよ。",
+     "lang_tag": "ja-Hrkt",
+     "markup": null,
+     "editor": "small_snow",
+     "info_message": "The furigana was last edited by small_snow on April 9, 2022 at 1:53:36 AM UTC."
+    }
+   ],
+   "audios": [],
+   "user": {
+    "username": "small_snow"
+   },
+   "lang_name": "Japanese",
+   "dir": "ltr",
+   "lang_tag": "ja",
+   "is_favorite": null,
+   "is_owned_by_current_user": false,
+   "permissions": null,
+   "max_visible_translations": 5,
+   "current_user_review": null
+  },
+  {
+   "id": 2446172,
+   "text": "学校は好き？",
+   "lang": "jpn",
+   "correctness": 0,
+   "script": null,
+   "license": "CC BY 2.0 FR",
+   "translations": [
+    [
+     {
+      "id": 1098292,
+      "text": "Do you like school?",
+      "lang": "eng",
+      "correctness": 0,
+      "script": null,
+      "transcriptions": [],
+      "audios": [
+       {
+        "id": 63466,
+        "source": "tatoeba",
+        "author": "CK",
+        "attribution_url": null,
+        "license": null,
+        "download_url": "/en/audio/download/63466"
+       }
+      ],
+      "isDirect": true,
+      "lang_name": "English",
+      "dir": "ltr",
+      "lang_tag": "en"
+     }
+    ],
+    [
+     {
+      "id": 4109873,
+      "text": "Do you like going to school?",
+      "lang": "eng",
+      "correctness": 0,
+      "script": null,
+      "transcriptions": [],
+      "audios": [
+       {
+        "id": 247956,
+        "external": null,
+        "source": "tatoeba",
+        "sentence_id": 4109873,
+        "user": {
+         "username": "CK"
+        },
+        "author": "CK",
+        "attribution_url": null,
+        "license": null,
+        "download_url": "/en/audio/download/247956"
+       }
+      ],
+      "lang_name": "English",
+      "dir": "ltr",
+      "lang_tag": "en"
+     }
+    ]
+   ],
+   "transcriptions": [
+    {
+     "id": 1846636,
+     "sentence_id": 2446172,
+     "script": "Hrkt",
+     "text": "[学校|がっ|こう]は[好|す]き？",
+     "user_id": 100651,
+     "needsReview": false,
+     "modified": "2022-12-11T18:40:02+00:00",
+     "user": {
+      "username": "KK_kaku_"
+     },
+     "readonly": false,
+     "type": "altscript",
+     "html": " 学 （</rp> がっ</rt> ）</rp></ruby> 校 （</rp> こう</rt> ）</rp></ruby>は 好 （</rp> す</rt> ）</rp></ruby>き？",
+     "lang_tag": "ja-Hrkt",
+     "markup": null,
+     "editor": "KK_kaku_",
+     "info_message": "The furigana was last edited by KK_kaku_ on December 11, 2022 at 6:40:02 PM UTC."
+    }
+   ],
+   "audios": [],
+   "user": {
+    "username": "tommy_san"
+   },
+   "lang_name": "Japanese",
+   "dir": "ltr",
+   "lang_tag": "ja",
+   "is_favorite": null,
+   "is_owned_by_current_user": false,
+   "permissions": null,
+   "max_visible_translations": 5,
+   "current_user_review": null
+  },
+  {
+   "id": 2095012,
+   "text": "学校はどう？",
+   "lang": "jpn",
+   "correctness": 0,
+   "script": null,
+   "license": "CC BY 2.0 FR",
+   "translations": [
+    [
+     {
+      "id": 1885868,
+      "text": "How's school?",
+      "lang": "eng",
+      "correctness": 0,
+      "script": null,
+      "transcriptions": [],
+      "audios": [
+       {
+        "id": 83993,
+        "source": "tatoeba",
+        "author": "CK",
+        "attribution_url": null,
+        "license": null,
+        "download_url": "/en/audio/download/83993"
+       }
+      ],
+      "isDirect": true,
+      "lang_name": "English",
+      "dir": "ltr",
+      "lang_tag": "en"
+     },
+     {
+      "id": 2548866,
+      "text": "How's school going?",
+      "lang": "eng",
+      "correctness": 0,
+      "script": null,
+      "transcriptions": [],
+      "audios": [
+       {
+        "id": 150883,
+        "source": "tatoeba",
+        "author": "CK",
+        "attribution_url": null,
+        "license": null,
+        "download_url": "/en/audio/download/150883"
+       }
+      ],
+      "isDirect": true,
+      "lang_name": "English",
+      "dir": "ltr",
+      "lang_tag": "en"
+     }
+    ],
+    [
+     {
+      "id": 5107357,
+      "text": "How is school?",
+      "lang": "eng",
+      "correctness": 0,
+      "script": null,
+      "transcriptions": [],
+      "audios": [],
+      "lang_name": "English",
+      "dir": "ltr",
+      "lang_tag": "en"
+     },
+     {
+      "id": 2366909,
+      "text": "How are things at school?",
+      "lang": "eng",
+      "correctness": 0,
+      "script": null,
+      "transcriptions": [],
+      "audios": [
+       {
+        "id": 131775,
+        "external": null,
+        "source": "tatoeba",
+        "sentence_id": 2366909,
+        "user": {
+         "username": "CK"
+        },
+        "author": "CK",
+        "attribution_url": null,
+        "license": null,
+        "download_url": "/en/audio/download/131775"
+       }
+      ],
+      "lang_name": "English",
+      "dir": "ltr",
+      "lang_tag": "en"
+     },
+     {
+      "id": 5839806,
+      "text": "How are you doing in school?",
+      "lang": "eng",
+      "correctness": 0,
+      "script": null,
+      "transcriptions": [],
+      "audios": [
+       {
+        "id": 305238,
+        "external": null,
+        "source": "tatoeba",
+        "sentence_id": 5839806,
+        "user": {
+         "username": "CK"
+        },
+        "author": "CK",
+        "attribution_url": null,
+        "license": null,
+        "download_url": "/en/audio/download/305238"
+       }
+      ],
+      "lang_name": "English",
+      "dir": "ltr",
+      "lang_tag": "en"
+     },
+     {
+      "id": 2891374,
+      "text": "How's it going at school?",
+      "lang": "eng",
+      "correctness": 0,
+      "script": null,
+      "transcriptions": [],
+      "audios": [
+       {
+        "id": 170207,
+        "external": null,
+        "source": "tatoeba",
+        "sentence_id": 2891374,
+        "user": {
+         "username": "CK"
+        },
+        "author": "CK",
+        "attribution_url": null,
+        "license": null,
+        "download_url": "/en/audio/download/170207"
+       }
+      ],
+      "lang_name": "English",
+      "dir": "ltr",
+      "lang_tag": "en"
+     },
+     {
+      "id": 6736330,
+      "text": "How are things going at school?",
+      "lang": "eng",
+      "correctness": 0,
+      "script": null,
+      "transcriptions": [],
+      "audios": [
+       {
+        "id": 660815,
+        "external": null,
+        "source": "tatoeba",
+        "sentence_id": 6736330,
+        "user": {
+         "username": "CK"
+        },
+        "author": "CK",
+        "attribution_url": null,
+        "license": null,
+        "download_url": "/en/audio/download/660815"
+       }
+      ],
+      "lang_name": "English",
+      "dir": "ltr",
+      "lang_tag": "en"
+     },
+     {
+      "id": 1086407,
+      "text": "How is it at school?",
+      "lang": "eng",
+      "correctness": 0,
+      "script": null,
+      "transcriptions": [],
+      "audios": [
+       {
+        "id": 59209,
+        "external": null,
+        "source": "tatoeba",
+        "sentence_id": 1086407,
+        "user": {
+         "username": "CK"
+        },
+        "author": "CK",
+        "attribution_url": null,
+        "license": null,
+        "download_url": "/en/audio/download/59209"
+       }
+      ],
+      "lang_name": "English",
+      "dir": "ltr",
+      "lang_tag": "en"
+     }
+    ]
+   ],
+   "transcriptions": [
+    {
+     "id": 1536205,
+     "sentence_id": 2095012,
+     "script": "Hrkt",
+     "text": "[学校|がっ|こう]はどう？",
+     "user_id": 81071,
+     "needsReview": false,
+     "modified": "2020-02-11T08:59:45+00:00",
+     "user": {
+      "username": "Yorwba"
+     },
+     "readonly": false,
+     "type": "altscript",
+     "html": " 学 （</rp> がっ</rt> ）</rp></ruby> 校 （</rp> こう</rt> ）</rp></ruby>はどう？",
+     "lang_tag": "ja-Hrkt",
+     "markup": null,
+     "editor": "Yorwba",
+     "info_message": "The furigana was last edited by Yorwba on February 11, 2020 at 8:59:45 AM UTC."
+    }
+   ],
+   "audios": [],
+   "user": {
+    "username": "bunbuku"
+   },
+   "lang_name": "Japanese",
+   "dir": "ltr",
+   "lang_tag": "ja",
+   "is_favorite": null,
+   "is_owned_by_current_user": false,
+   "permissions": null,
+   "max_visible_translations": 5,
+   "current_user_review": null
+  }
+ ]
+}

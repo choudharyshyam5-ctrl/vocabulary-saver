@@ -19,8 +19,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
     scriptCategory = 'Vocabulary Saver'
     # NVDA uses __gestures, NOT __gestures__ (see its developer guide).
     __gestures = {
-        'kb:NVDA+shift+v': 'addVocabulary',
-        'kb:NVDA+alt+v': 'browseVocabulary',
+        'kb:NVDA+alt+v': 'addVocabulary',
+        'kb:NVDA+alt+b': 'browseVocabulary',
+        'kb:NVDA+alt+q': 'startQuiz',
     }
 
     def __init__(self):
@@ -35,18 +36,45 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
             submenu = wx.Menu()
             for label, handler in [
                 ('&Add vocabulary...', self._menu_add),
+                ('&Search word and add...', self._menu_search),
                 ('&Read vocabulary list...', self._menu_read),
                 ('&Edit vocabulary list...', self._menu_edit),
                 ('Start &MCQ quiz...', self._menu_quiz),
                 ('&Lessons...', self._menu_lessons),
+                ('&Check vocabulary with AI...', self._menu_ai),
             ]:
                 item = submenu.Append(wx.ID_ANY, label)
                 gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, handler, item)
                 self._menu_bindings.append((item.GetId(), handler))
             self._tools_item = gui.mainFrame.sysTrayIcon.toolsMenu.AppendSubMenu(submenu, 'Vocabulary Saver')
+            wx.CallAfter(self._maybe_show_whats_new)
+
+    def _maybe_show_whats_new(self):
+        """Show the one-time what's-new notice when this version has not been seen."""
+        if globalVars.appArgs.secure or isLockScreenModeActive():
+            return
+        try:
+            from .settings import last_seen_version, mark_version_seen, whats_new_enabled
+            from .whatsnew import current_version, should_show
+            version = current_version()
+            if not should_show(last_seen_version(), version, whats_new_enabled()):
+                return
+            # Mark before showing, so the notice can never appear on every start.
+            mark_version_seen(version)
+            from .whatsnewDialog import WhatsNewDialog
+            gui.mainFrame.prePopup()
+            try:
+                WhatsNewDialog(gui.mainFrame, version).Show()
+            finally:
+                gui.mainFrame.postPopup()
+        except Exception:
+            log.error('Vocabulary Saver what-is-new notice failed', exc_info=True)
 
     def _menu_add(self, event):
         wx.CallAfter(self._open, '', True)
+
+    def _menu_search(self, event):
+        wx.CallAfter(self._open, '', False, 'search')
 
     def _menu_read(self, event):
         wx.CallAfter(self._open, '', False, 'read')
@@ -60,6 +88,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
     def _menu_lessons(self, event):
         wx.CallAfter(self._open)
 
+    def _menu_ai(self, event):
+        wx.CallAfter(self._open, '', False, 'ai')
+
     @script(description='Add a vocabulary entry, using selected text when available')
     def script_addVocabulary(self, gesture):
         if not globalVars.appArgs.secure and not isLockScreenModeActive():
@@ -72,6 +103,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
     def script_browseVocabulary(self, gesture):
         if not globalVars.appArgs.secure and not isLockScreenModeActive():
             wx.CallAfter(self._open, '', False)
+
+    @script(description='Start a multiple-choice quiz from your saved words')
+    def script_startQuiz(self, gesture):
+        if not globalVars.appArgs.secure and not isLockScreenModeActive():
+            wx.CallAfter(self._open, '', False, 'quiz')
 
     def _open(self, word='', add=False, action=None):
         if globalVars.appArgs.secure or isLockScreenModeActive():

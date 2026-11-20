@@ -13,6 +13,7 @@ class Question:
     word: str
     options: tuple[str, ...]
     correct_index: int
+    reading: str = ''
 
 
 def make_questions(lesson, rng=None, question_count=10):
@@ -44,7 +45,7 @@ def make_questions(lesson, rng=None, question_count=10):
         distractors = [value for key, value in meanings.items() if key != entry['meaning'].casefold()]
         options = [entry['meaning']] + rng.sample(distractors, min(3, len(distractors)))
         rng.shuffle(options)
-        questions.append(Question(entry['id'], entry['word'], tuple(options), options.index(entry['meaning'])))
+        questions.append(Question(entry['id'], entry['word'], tuple(options), options.index(entry['meaning']), entry.get('reading', '')))
     rng.shuffle(questions)
     return questions[:question_count] if question_count else questions
 
